@@ -8,6 +8,8 @@
     app:cardCornerRadius="30dp"
     app:cardElevation="4dp">
 
+
+
     <RelativeLayout
         android:id="@+id/cleaner"
         android:layout_width="match_parent"
@@ -34,7 +36,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:background="@drawable/border"
-            android:text="4:00" />
+            android:text="-:-" />
 
         <TextView
             android:id="@+id/to"
@@ -43,7 +45,7 @@
             android:layout_below="@+id/startTime"
             android:layout_marginStart="55dp"
             android:layout_marginLeft="55dp"
-            android:text="To"
+            android:text="to"
             android:textSize="18sp" />
 
         <Button
@@ -54,7 +56,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:background="@drawable/border"
-            android:text="5:00" />
+            android:text="-:-" />
 
         <Button
             android:id="@+id/gender"

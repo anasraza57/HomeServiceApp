@@ -131,7 +131,7 @@ public class JobActivity extends AppCompatActivity {
                         }
 
 
-                        db.collection("JobRequest").add(helperRequests).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        db.collection("JobRequests").add(helperRequests).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
                                 Toast.makeText(getApplicationContext(),"Your Job request is submitted You will be Notified",Toast.LENGTH_LONG).show();

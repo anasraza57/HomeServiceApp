@@ -100,6 +100,11 @@ public class SessionManager {
         return pref.getString(HELPER_NAME,null);
     }
 
+    public static String getUserPhone()
+    {
+        return pref.getString(USER_NAME,null);
+    }
+
     /**
      * Clear session details
      * */
@@ -116,6 +121,24 @@ public class SessionManager {
 
         // Add new Flag to start new Activity
        // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        // Staring Login Activity
+
+    }
+
+    public static void logoutUser(){
+        // Clearing all data from Shared Preferences
+        editor.remove(USER_NAME);
+
+        editor.commit();
+
+        // After logout redirect user to Loing Activity
+
+        // Closing all the Activities
+        // i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        // Add new Flag to start new Activity
+        // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         // Staring Login Activity
 

@@ -41,5 +41,12 @@
     <string name="view_helpers">Helpers</string>
     <string name="notification">Notification</string>
     <string name="timing">Timing</string>
+    <string name="view_requests">View Requests</string>
+    <string name="request_msg">Request Message</string>
+    <string name="view_request">View Request</string>
+    <string name="assign_helper">Assign a Helper</string>
+    <string name="available_helpers">Available Helpers</string>
+    <string name="view_details">View Details</string>
+    <string name="assign">Assign</string>
 
 </resources>

@@ -1,24 +1,24 @@
 package com.example.myapplication;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-public class ViewAllUsersActivity extends AppCompatActivity implements View.OnClickListener {
+public class ViewAllRequestsActivity extends AppCompatActivity implements View.OnClickListener{
 
     Button usersButton, HelpersButton, viewRequestButton;
     RecyclerView recyclerView;
-    ViewAllUserRecyclerAdapter recyclerAdapter;
+    ViewAllRequestsRecyclerAdapter recyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_all_users);
+        setContentView(R.layout.activity_view_all_requests);
 
         usersButton = findViewById(R.id.users);
         HelpersButton = findViewById(R.id.helpers);
@@ -31,7 +31,7 @@ public class ViewAllUsersActivity extends AppCompatActivity implements View.OnCl
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerAdapter = new ViewAllUserRecyclerAdapter(this);
+        recyclerAdapter = new ViewAllRequestsRecyclerAdapter(this);
         recyclerView.setAdapter(recyclerAdapter);
     }
 
@@ -52,8 +52,6 @@ public class ViewAllUsersActivity extends AppCompatActivity implements View.OnCl
                 intent = new Intent(this, ViewAllRequestsActivity.class);
                 startActivity(intent);
                 break;
-
-
         }
     }
 }

@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/buttons"
         android:gravity="center_horizontal"
-        android:text="All Helpers"
+        android:text="All Requests"
         android:textColor="#5574F7"
         android:textSize="30sp" />
 
@@ -73,6 +73,5 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/allusers"
         android:layout_marginTop="10dp" />
-
 
 </RelativeLayout>

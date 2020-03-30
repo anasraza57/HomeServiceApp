@@ -6,32 +6,37 @@
     android:background="@color/grey"
     tools:context=".HelperActivity">
 
-    <Button
-        android:id="@+id/logout"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:id="@+id/head"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_height="wrap_content">
 
-        android:layout_alignParentRight="true"
-        android:background="@drawable/custom_button"
-        android:layout_marginTop="20dp"
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/custom_button"
+            android:text="LogOut"
+            android:textColor="@android:color/white" />
 
-        android:text="LogOut"
-        android:textColor="@android:color/white" />
+        <TextView
+            android:id="@+id/bookHelper"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/getajob"
+            android:textSize="35sp" />
 
-    <TextView
-        android:id="@+id/bookHelper"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/getajob"
-        android:textSize="35sp" />
+    </RelativeLayout>
 
     <ScrollView
-        android:layout_below="@+id/bookHelper"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/head">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -40,7 +45,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/startServices"
@@ -48,9 +53,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/recyclerView"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/custom_button"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="30dp"
+                android:background="@drawable/custom_button"
                 android:text="@string/startServices"
                 android:textColor="@android:color/white" />
         </RelativeLayout>

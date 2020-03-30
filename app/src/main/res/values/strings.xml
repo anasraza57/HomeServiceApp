@@ -32,5 +32,14 @@
     <string name="selectpreferable">Select Preferable Timings</string>
     <string name="done">Done</string>
     <string name="title_activity_user_register">UserRegisterActivity</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="address">Address</string>
+    <string name="gender">Gender</string>
+    <string name="admin_pannel">Admin Pannel</string>
+    <string name="view_users">Users</string>
+    <string name="view_helpers">Helpers</string>
+    <string name="notification">Notification</string>
+    <string name="timing">Timing</string>
 
 </resources>

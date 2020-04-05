@@ -53,18 +53,54 @@ public class HelperRecyclerAdapter extends RecyclerView.Adapter<HelperRecyclerAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+
+        holder.title.setText(servicesData.get(position).title);
+
+        holder.startTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.timePickerDialog=new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        holder.startTimeButton.setText(hourOfDay + ":"+minute);
+                        holder.startTime.setHours(hourOfDay);
+                        holder.startTime.setMinutes(minute);
+
+                    }
+                },holder.hour,holder.minute,android.text.format.DateFormat.is24HourFormat(context));
+                holder.timePickerDialog.show();
+            }
+        });
+
+        holder.endTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.timePickerDialog=new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        holder.endTimeButton.setText(hourOfDay + ":"+minute);
+                        holder.endTime.setHours(hourOfDay);
+                        holder.endTime.setMinutes(minute);
+
+                    }
+                },holder.hour,holder.minute,android.text.format.DateFormat.is24HourFormat(context));
+                holder.timePickerDialog.show();
+
+            }
+        });
         holder.serviceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(holder.startTimeButton.getText().toString()!="-:-"&&holder.endTimeButton.getText().toString()!="-:-")
+                if((holder.startTime.getHours()!=0)&&(holder.endTime.getHours()!=0))
                 {
+                    Log.w(TAG,holder.startTimeButton.getText().toString());
                     Map<String,Object> helperRequests=new HashMap<>();
                     helperRequests.put("userName",userName);
                     helperRequests.put("userPhone",userPhone);
-
-                    helperRequests.put("startTime",holder.startTime);
-                    helperRequests.put("endTime",holder.endTime);
+                    helperRequests.put("title",servicesData.get(position).title);
+                    helperRequests.put("startTime",holder.startTime.hours+":"+holder.startTime.minutes);
+                    helperRequests.put("endTime",holder.endTime.hours+":"+holder.endTime.minutes);
                     db.collection("HelperRequests").add(helperRequests).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
@@ -107,7 +143,7 @@ public class HelperRecyclerAdapter extends RecyclerView.Adapter<HelperRecyclerAd
         return servicesData.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView title;
         Button startTimeButton, endTimeButton, genderButton, serviceButton;
@@ -116,6 +152,7 @@ public class HelperRecyclerAdapter extends RecyclerView.Adapter<HelperRecyclerAd
         Time startTime,endTime;
         TimePickerDialog timePickerDialog;
         Context context;
+        String startTimeString,endTimeString;
 
         public ViewHolder(@NonNull View itemView,Context context) {
             super(itemView);
@@ -124,12 +161,14 @@ public class HelperRecyclerAdapter extends RecyclerView.Adapter<HelperRecyclerAd
             startTimeButton = itemView.findViewById(R.id.startTime);
             endTimeButton = itemView.findViewById(R.id.endTime);
             genderButton = itemView.findViewById(R.id.gender);
+            startTimeString="";
+            endTimeString="";
             serviceButton = itemView.findViewById(R.id.getService);
             startTime=new Time();
             endTime=new Time();
             this.context=context;
-            startTimeButton.setOnClickListener(this);
-            endTimeButton.setOnClickListener(this);
+
+
             Calendar calendar=Calendar.getInstance();
 
 
@@ -138,36 +177,24 @@ public class HelperRecyclerAdapter extends RecyclerView.Adapter<HelperRecyclerAd
 
         }
 
-        @Override
-        public void onClick(View v) {
-            switch (v.getId())
-            {
-
-                case R.id.startTime:
-
-                    timePickerDialog=new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
-                        @Override
-                        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                            startTimeButton.setText(hourOfDay + ":"+minute);
-                            startTime.setHours(hourOfDay);
-                            startTime.setMinutes(minute);
-                        }
-                    },hour,minute,android.text.format.DateFormat.is24HourFormat(context));
-                    timePickerDialog.show();
-                    break;
-                case R.id.endTime:
-
-                    timePickerDialog=new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
-                        @Override
-                        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                            endTimeButton.setText(hourOfDay + ":"+minute);
-                            endTime.setHours(hourOfDay);
-                            endTime.setMinutes(minute);
-                        }
-                    },hour,minute,android.text.format.DateFormat.is24HourFormat(context));
-                    timePickerDialog.show();
-                    break;
-            }
-        }
+//        @Override
+//        public void onClick(View v) {
+//            switch (v.getId())
+//            {
+//
+//                case R.id.endTime:
+//
+//                    timePickerDialog=new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
+//                        @Override
+//                        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//                            endTimeButton.setText(hourOfDay + ":"+minute);
+//                            endTime.setHours(hourOfDay);
+//                            endTime.setMinutes(minute);
+//                        }
+//                    },hour,minute,android.text.format.DateFormat.is24HourFormat(context));
+//                    timePickerDialog.show();
+//                    break;
+//            }
+//        }
     }
 }

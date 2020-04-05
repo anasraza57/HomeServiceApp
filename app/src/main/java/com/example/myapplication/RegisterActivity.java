@@ -10,8 +10,11 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import android.net.Uri;
@@ -31,7 +34,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     boolean flag=true;
     TextView signButton;
@@ -42,6 +45,9 @@ public class RegisterActivity extends AppCompatActivity {
     TextInputLayout phoneText;
     TextInputLayout passText;
     Bitmap bitmap;
+    Spinner gender;
+    String[] items=new String[]{"Male","Female"};
+    String selectedItem="";
 
     int CHOOSE_IMAGE=16;
     Uri uri;
@@ -58,8 +64,14 @@ public class RegisterActivity extends AppCompatActivity {
         cnicText=findViewById(R.id.cnicText);
         phoneText=findViewById(R.id.phoneText);
         passText=findViewById(R.id.passText);
+        gender=findViewById(R.id.gender);
         registerButton=findViewById(R.id.registerButton);
         db= FirebaseFirestore.getInstance();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegisterActivity.this,
+                android.R.layout.simple_spinner_item,items);
+
+
+
 
 
         signButton.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +98,12 @@ public class RegisterActivity extends AppCompatActivity {
                final String phone=phoneText.getEditText().getText().toString();
                final String cnic=cnicText.getEditText().getText().toString();
                final String password=passText.getEditText().getText().toString();
+               if(selectedItem=="")
+               {
+                   Toast.makeText(getApplicationContext(), "Please Fill the required fields",Toast.LENGTH_LONG).show();
+                   return;
+
+               }
 
                 if(name==null || phone == null || cnic==null || password==null)
                 {
@@ -101,7 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
                             {Toast.makeText(getApplicationContext(), "Invalid phone",Toast.LENGTH_LONG).show();
                                 return;
                             }
-                            if(registerUser(name,phone,cnic,password)==true)
+                            if(registerUser(name,phone,cnic,password,selectedItem)==true)
                             {
                                 SessionManager.createLoginSessionForHelper(phone);
                                 Intent intent=new Intent(getApplicationContext(),JobActivity.class);
@@ -149,7 +167,7 @@ public class RegisterActivity extends AppCompatActivity {
         return true;
     }
 
-    public boolean registerUser(String name, String phone, String cnic, String pass)
+    public boolean registerUser(String name, String phone, String cnic, String pass,String gender)
         {
 
 
@@ -159,6 +177,7 @@ public class RegisterActivity extends AppCompatActivity {
             users.put("phone",phone);
             users.put("cnic",cnic);
             users.put("password",pass);
+            users.put("gender",gender);
            // users.put("cnicImage",cnicImage);
             Log.w(TAG,name+phone);
 
@@ -195,5 +214,16 @@ public class RegisterActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        selectedItem=items[position];
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

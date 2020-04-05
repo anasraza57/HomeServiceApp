@@ -1,19 +1,35 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.multidex.MultiDexApplication;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 public class ViewAllUsersActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button usersButton, HelpersButton;
     RecyclerView recyclerView;
     ViewAllUserRecyclerAdapter recyclerAdapter;
+    FirebaseFirestore db;
+    String TAG="MyActivity";
+    ArrayList<UsersData> usersData=new ArrayList<>();
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +41,30 @@ public class ViewAllUsersActivity extends AppCompatActivity implements View.OnCl
 
         usersButton.setOnClickListener(this);
         HelpersButton.setOnClickListener(this);
+        context=this;
+
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerAdapter = new ViewAllUserRecyclerAdapter(this);
-        recyclerView.setAdapter(recyclerAdapter);
+        db=FirebaseFirestore.getInstance();
+        db.collection("Users").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (DocumentSnapshot user :queryDocumentSnapshots.getDocuments()) {
+                    usersData.add(new UsersData(user.getString("phone"),user.getString("password"),user.getString("name"),user.getString("address")));
+                }
+                recyclerAdapter = new ViewAllUserRecyclerAdapter(context,usersData);
+                recyclerView.setAdapter(recyclerAdapter);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG,"GET ALL USERS FAILURE LISTENER"+e.getMessage());
+            }
+        });
+
+
     }
 
     @Override

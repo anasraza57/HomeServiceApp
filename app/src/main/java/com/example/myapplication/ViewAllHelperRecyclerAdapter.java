@@ -12,12 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 class ViewAllHelperRecyclerAdapter extends RecyclerView.Adapter<ViewAllHelperRecyclerAdapter.ViewHolder> {
 
     private Context context;
 
+
     ViewAllHelperRecyclerAdapter(Context applicationContext) {
         this.context = applicationContext;
+
     }
 
     @NonNull
@@ -30,6 +34,7 @@ class ViewAllHelperRecyclerAdapter extends RecyclerView.Adapter<ViewAllHelperRec
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
 
     }
 

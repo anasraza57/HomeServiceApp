@@ -5,11 +5,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.Button;
+
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ViewAllHelpersActivity extends AppCompatActivity {
 
+
+    Button usersButton, HelpersButton;
     RecyclerView recyclerView;
     ViewAllHelperRecyclerAdapter recyclerAdapter;
+    FirebaseFirestore db;
+    String TAG="MyActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

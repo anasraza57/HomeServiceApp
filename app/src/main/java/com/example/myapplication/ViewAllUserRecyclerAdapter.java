@@ -12,12 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class ViewAllUserRecyclerAdapter extends RecyclerView.Adapter<ViewAllUserRecyclerAdapter.ViewHolder> {
 
     private Context context;
 
-    ViewAllUserRecyclerAdapter(Context applicationContext) {
+    ArrayList<UsersData> usersData;
+    ViewAllUserRecyclerAdapter(Context applicationContext,ArrayList<UsersData> usersData) {
         this.context = applicationContext;
+        this.usersData=usersData;
     }
 
     @NonNull
@@ -29,13 +33,29 @@ public class ViewAllUserRecyclerAdapter extends RecyclerView.Adapter<ViewAllUser
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+
+        holder.name.setText(usersData.get(position).getName());
+        holder.phone.setText(usersData.get(position).getPhone());
+
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog(position);
+            }
+            private void openDialog(int pos) {
+                ViewAllUserDialog dialog = new ViewAllUserDialog(usersData,pos);
+                dialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "User Details");
+
+            }
+        });
 
     }
 
+
     @Override
     public int getItemCount() {
-        return 7;
+        return usersData.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -52,7 +72,6 @@ public class ViewAllUserRecyclerAdapter extends RecyclerView.Adapter<ViewAllUser
             closeButton = itemView.findViewById(R.id.close);
             layout = itemView.findViewById(R.id.card);
 
-            layout.setOnClickListener(this);
             closeButton.setOnClickListener(this);
         }
 
@@ -61,17 +80,9 @@ public class ViewAllUserRecyclerAdapter extends RecyclerView.Adapter<ViewAllUser
             switch (v.getId()) {
                 case R.id.close:
                     break;
-
-                case R.id.card:
-                    openDialog();
-                    break;
             }
         }
 
-        private void openDialog() {
-            ViewAllUserDialog dialog = new ViewAllUserDialog();
-            dialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "User Details");
 
-        }
     }
 }

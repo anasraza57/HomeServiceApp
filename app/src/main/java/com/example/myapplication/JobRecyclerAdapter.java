@@ -58,9 +58,6 @@ public class JobRecyclerAdapter extends RecyclerView.Adapter<JobRecyclerAdapter.
                 }
             }
 
-
-
-
                 private void openDialog() {
 
                     JobDialog dialog = new JobDialog(jobData,position,ref);

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class ViewAllUsersActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button usersButton, HelpersButton;
+    Button usersButton, HelpersButton, viewRequestButton;
     RecyclerView recyclerView;
     ViewAllUserRecyclerAdapter recyclerAdapter;
     FirebaseFirestore db;
@@ -38,10 +38,15 @@ public class ViewAllUsersActivity extends AppCompatActivity implements View.OnCl
 
         usersButton = findViewById(R.id.users);
         HelpersButton = findViewById(R.id.helpers);
+        viewRequestButton = findViewById(R.id.view_requests);
 
         usersButton.setOnClickListener(this);
         HelpersButton.setOnClickListener(this);
+
         context=this;
+
+
+        viewRequestButton.setOnClickListener(this);
 
 
         recyclerView = findViewById(R.id.recyclerView);
@@ -78,6 +83,10 @@ public class ViewAllUsersActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.helpers:
                 intent = new Intent(this, ViewAllHelpersActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.view_requests:
+                intent = new Intent(this, ViewAllRequestsActivity.class);
                 startActivity(intent);
                 break;
 

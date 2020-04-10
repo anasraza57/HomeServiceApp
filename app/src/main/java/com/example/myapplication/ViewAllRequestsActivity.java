@@ -6,27 +6,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import android.widget.Button;
-
-import com.google.firebase.firestore.FirebaseFirestore;
-
 import android.view.View;
 import android.widget.Button;
 
-
-public class ViewAllHelpersActivity extends AppCompatActivity implements View.OnClickListener{
+public class ViewAllRequestsActivity extends AppCompatActivity implements View.OnClickListener{
 
     Button usersButton, HelpersButton, viewRequestButton;
-
     RecyclerView recyclerView;
-    ViewAllHelperRecyclerAdapter recyclerAdapter;
-    FirebaseFirestore db;
-    String TAG="MyActivity";
+    ViewAllRequestsRecyclerAdapter recyclerAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_all_helpers);
+        setContentView(R.layout.activity_view_all_requests);
 
         usersButton = findViewById(R.id.users);
         HelpersButton = findViewById(R.id.helpers);
@@ -39,7 +31,7 @@ public class ViewAllHelpersActivity extends AppCompatActivity implements View.On
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerAdapter = new ViewAllHelperRecyclerAdapter(this);
+        recyclerAdapter = new ViewAllRequestsRecyclerAdapter(this);
         recyclerView.setAdapter(recyclerAdapter);
     }
 
@@ -60,8 +52,6 @@ public class ViewAllHelpersActivity extends AppCompatActivity implements View.On
                 intent = new Intent(this, ViewAllRequestsActivity.class);
                 startActivity(intent);
                 break;
-
-
         }
     }
 }

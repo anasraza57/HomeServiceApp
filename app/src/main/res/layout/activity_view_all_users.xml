@@ -46,23 +46,14 @@
             android:textColor="@android:color/white" />
 
         <Button
+            android:id="@+id/view_requests"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:background="@drawable/custom_button_blue"
-            android:text="@string/view_users"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/custom_button_blue"
-            android:text="@string/view_helpers"
+            android:text="@string/view_requests"
             android:textColor="@android:color/white" />
     </LinearLayout>
 

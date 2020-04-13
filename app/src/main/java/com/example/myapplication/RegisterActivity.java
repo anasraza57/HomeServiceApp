@@ -69,6 +69,8 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         db= FirebaseFirestore.getInstance();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegisterActivity.this,
                 android.R.layout.simple_spinner_item,items);
+        gender.setAdapter(adapter);
+
 
 
 
@@ -94,23 +96,27 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                selectedItem=gender.getSelectedItem().toString();
                final String name=nameText.getEditText().getText().toString();
                final String phone=phoneText.getEditText().getText().toString();
                final String cnic=cnicText.getEditText().getText().toString();
                final String password=passText.getEditText().getText().toString();
-               if(selectedItem=="")
+
+
+               if(selectedItem.isEmpty())
                {
                    Toast.makeText(getApplicationContext(), "Please Fill the required fields",Toast.LENGTH_LONG).show();
                    return;
 
                }
 
-                if(name==null || phone == null || cnic==null || password==null)
+                if(name.isEmpty() || phone.isEmpty() || cnic.isEmpty() || password.isEmpty())
                 {
                     Toast.makeText(getApplicationContext(), "Please Fill the required fields",Toast.LENGTH_LONG).show();
                     return;
                 }
-                db.collection("Users").document(phone).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                db.collection("Helpers").document(phone).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if(!documentSnapshot.exists())

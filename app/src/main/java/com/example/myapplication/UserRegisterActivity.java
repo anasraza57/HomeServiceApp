@@ -77,7 +77,7 @@ public class UserRegisterActivity extends AppCompatActivity {
                 final String address=addressText.getEditText().getText().toString();
                 final String password=passText.getEditText().getText().toString();
 
-                if(name==null || phone == null || address==null || password==null)
+                if(name.isEmpty() || phone.isEmpty() || address.isEmpty() || password.isEmpty())
                 {
                     Toast.makeText(getApplicationContext(), "Please Fill the required fields",Toast.LENGTH_LONG).show();
                     return;

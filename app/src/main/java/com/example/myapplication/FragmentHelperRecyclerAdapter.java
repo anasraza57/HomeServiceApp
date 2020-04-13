@@ -11,8 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 class FragmentHelperRecyclerAdapter extends RecyclerView.Adapter<FragmentHelperRecyclerAdapter.ViewHolder> {
     private Context context;
+    ArrayList<HelperNotificationData> helperNotificationData;
+    String helperPhone;
+
+    public FragmentHelperRecyclerAdapter(Context context, ArrayList<HelperNotificationData> helperNotificationData) {
+        this.context = context;
+        this.helperNotificationData = helperNotificationData;
+    }
 
     public FragmentHelperRecyclerAdapter(Context context) {
         this.context = context;
@@ -27,13 +36,25 @@ class FragmentHelperRecyclerAdapter extends RecyclerView.Adapter<FragmentHelperR
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder,final int position) {
+
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog(position);
+            }
+        });
+    }
+
+    private void openDialog(int pos) {
+        FragmentHelperDialog dialog = new FragmentHelperDialog(pos, helperNotificationData);
+        dialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "User Details");
 
     }
 
     @Override
     public int getItemCount() {
-        return 7;
+        return helperNotificationData.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -47,18 +68,9 @@ class FragmentHelperRecyclerAdapter extends RecyclerView.Adapter<FragmentHelperR
             notify = itemView.findViewById(R.id.notify);
             layout = itemView.findViewById(R.id.card);
 
-            layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openDialog();
-                }
-            });
-        }
-
-        private void openDialog() {
-            FragmentHelperDialog dialog = new FragmentHelperDialog();
-            dialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "User Details");
 
         }
+
+
     }
 }

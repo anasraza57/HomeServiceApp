@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +12,23 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+
 public class FragmentHelperNotification extends Fragment {
     View view;
 
     RecyclerView recyclerView;
     FragmentHelperRecyclerAdapter recyclerAdapter;
+    String TAG="MyActivity";
+    FirebaseFirestore db;
+    ArrayList<HelperNotificationData> helperNotificationData =new ArrayList<>();
+    String helperPhone;
 
     FragmentHelperNotification(){
 
@@ -28,9 +41,27 @@ public class FragmentHelperNotification extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        helperPhone=SessionManager.getHelperPhone();
 
-        recyclerAdapter = new FragmentHelperRecyclerAdapter(getContext());
-        recyclerView.setAdapter(recyclerAdapter);
+        db=FirebaseFirestore.getInstance();
+
+        db.collection("HelperNotifications").whereEqualTo("helperPhone",helperPhone).orderBy("notificationDate").get().addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG,e.getMessage());
+
+            }
+        }).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (DocumentSnapshot notification:queryDocumentSnapshots.getDocuments()) {
+                    helperNotificationData.add(new HelperNotificationData(notification.getString("userName"),notification.getString("userPhone"),notification.getString("title"),notification.get("notificationDate").toString()));
+
+                }
+                recyclerAdapter = new FragmentHelperRecyclerAdapter(getContext(),helperNotificationData);
+                recyclerView.setAdapter(recyclerAdapter);
+            }
+        });
 
         return view;
     }

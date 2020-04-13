@@ -18,32 +18,105 @@
             android:text="@string/fullName"
             android:textColor="@android:color/white"
             android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/phone"
-            android:textColor="@android:color/white"
-            android:textSize="22sp" />
-        <TextView
-            android:id="@+id/gender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/gender"
-            android:textColor="@android:color/white"
-            android:textSize="22sp" />
     </LinearLayout>
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:id="@+id/phoneLayout"
+    android:layout_marginLeft="15dp"
+    android:layout_below="@id/info">
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Helper Phone  :"
+            android:textColor="@android:color/white"
+            android:textSize="18dp" />
+    <TextView
+        android:id="@+id/phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="@string/phone"
+        android:textColor="@android:color/white"
+        android:textSize="18dp" />
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/phoneLayout"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/genderLayout">
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Helper Gender :"
+            android:textColor="@android:color/white"
+            android:textSize="18dp" />
+        <TextView
+            android:id="@+id/gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Male"
+            android:textColor="@android:color/white"
+            android:textSize="18dp" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/note"
+        android:layout_below="@id/genderLayout"
+        android:textColor="@color/colorPrimary"
+        android:text="Contact with the helper on phone,
+
+
+        For any complaints please send your message with the Helper phone no to the admin"
+        android:textSize="18dp"
+        />
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/note"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/time">
+
+        <TextView
+            android:id="@+id/timings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="aklsdlkasdla"
+            android:textColor="@android:color/white"
+            android:textSize="18dp" />
+
+
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/buttonLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/info"
+        android:layout_below="@+id/time"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:gravity="center"
         android:orientation="horizontal">
+
+
 
         <Button
             android:id="@+id/doneButton"
@@ -51,6 +124,13 @@
             android:layout_height="40dp"
             android:background="@drawable/custom_button"
             android:text="@string/done"
+            android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/mark"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:background="@drawable/custom_button"
+            android:text="Mark as read"
             android:textColor="@android:color/white" />
 
 

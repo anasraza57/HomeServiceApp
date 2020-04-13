@@ -11,11 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 class ViewAllRequestsRecyclerAdapter extends RecyclerView.Adapter<ViewAllRequestsRecyclerAdapter.ViewHolder> {
     private Context context;
+    ArrayList<ServiceRequestsData> serviceRequestsData;
 
-    ViewAllRequestsRecyclerAdapter(Context applicationContext) {
+    ViewAllRequestsRecyclerAdapter(Context applicationContext,ArrayList<ServiceRequestsData> serviceRequestsData ) {
         this.context = applicationContext;
+        this.serviceRequestsData=serviceRequestsData;
     }
 
     @NonNull
@@ -27,38 +31,42 @@ class ViewAllRequestsRecyclerAdapter extends RecyclerView.Adapter<ViewAllRequest
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        holder.title.setText(serviceRequestsData.get(position).getTitle());
+        holder.viewRequestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog(position);
+            }
+        });
+
+    }
+
+    private void openDialog(int pos) {
+        ViewAllRequestsDialog dialog = new ViewAllRequestsDialog(pos,serviceRequestsData);
+        dialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "User Request");
 
     }
 
     @Override
     public int getItemCount() {
-        return 7;
+        return serviceRequestsData.size();
     }
 
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView requestMessageTextView;
+        TextView title;
         Button viewRequestButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            requestMessageTextView = itemView.findViewById(R.id.request);
+            title = itemView.findViewById(R.id.request);
             viewRequestButton = itemView.findViewById(R.id.view_request);
-            viewRequestButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openDialog();
-                }
-            });
-        }
-
-        private void openDialog() {
-            ViewAllRequestsDialog dialog = new ViewAllRequestsDialog();
-            dialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "User Request");
 
         }
+
+
     }
 }

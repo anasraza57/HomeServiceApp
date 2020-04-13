@@ -19,6 +19,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -131,9 +132,15 @@ public class JobActivity extends AppCompatActivity {
                         }
 
 
+
                         db.collection("JobRequests").add(helperRequests).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
+                                Map<String, Object> map=new HashMap<>();
+                                String id=documentReference.getId();
+                                map.put("id",id);
+                               documentReference.set(map, SetOptions.merge());
+
                                 Toast.makeText(getApplicationContext(),"Your Job request is submitted You will be Notified",Toast.LENGTH_LONG).show();
                                 Intent i=new Intent(getApplicationContext(),MainActivity.class);
                                 startActivity(i);

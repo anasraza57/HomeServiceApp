@@ -17,10 +17,12 @@ import java.util.ArrayList;
 class ViewAllHelperRecyclerAdapter extends RecyclerView.Adapter<ViewAllHelperRecyclerAdapter.ViewHolder> {
 
     private Context context;
+    ArrayList<HelpersData> helpersData=new ArrayList<>();
 
 
-    ViewAllHelperRecyclerAdapter(Context applicationContext) {
+    ViewAllHelperRecyclerAdapter(Context applicationContext, ArrayList<HelpersData> helpersData) {
         this.context = applicationContext;
+        this.helpersData=helpersData;
 
     }
 
@@ -33,14 +35,28 @@ class ViewAllHelperRecyclerAdapter extends RecyclerView.Adapter<ViewAllHelperRec
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
+        holder.name.setText(helpersData.get(position).getName());
+        holder.phone.setText(helpersData.get(position).getPhone());
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog(position);
+            }
+        });
+
+
+    }
+    private void openDialog(int pos) {
+        ViewAllHelperDialog dialog = new ViewAllHelperDialog(pos,helpersData);
+        dialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "Helper Details");
 
     }
 
     @Override
     public int getItemCount() {
-        return 7;
+        return helpersData.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -57,7 +73,6 @@ class ViewAllHelperRecyclerAdapter extends RecyclerView.Adapter<ViewAllHelperRec
             closeButton = itemView.findViewById(R.id.close);
             layout = itemView.findViewById(R.id.card);
 
-            layout.setOnClickListener(this);
             closeButton.setOnClickListener(this);
         }
 
@@ -67,16 +82,10 @@ class ViewAllHelperRecyclerAdapter extends RecyclerView.Adapter<ViewAllHelperRec
                 case R.id.close:
                     break;
 
-                case R.id.card:
-                    openDialog();
-                    break;
+
             }
         }
 
-        private void openDialog() {
-            ViewAllHelperDialog dialog = new ViewAllHelperDialog();
-            dialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "Helper Details");
 
-        }
     }
 }

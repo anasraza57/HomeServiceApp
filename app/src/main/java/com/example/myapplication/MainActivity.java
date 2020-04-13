@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button bookHelperButton, getJobButton, ourChargesButton, servicesButton;
     ImageView notifyButton;
 
+
     int[] sampleImages = {R.drawable.slide1, R.drawable.slide2, R.drawable.slide3};
     String[] textImagesHeading = {"Electrician", "Plumber", "Maasi"};
 
@@ -125,8 +126,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.notify:
-                intent= new Intent(getApplicationContext(), NotificationActivity.class);
-                startActivity(intent);
+                if(SessionManager.isUserLoggedIn()) {
+                    intent = new Intent(getApplicationContext(), NotificationActivity.class);
+                    startActivity(intent);
+                }
                 break;
 
         }

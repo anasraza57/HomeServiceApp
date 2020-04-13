@@ -9,39 +9,92 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="19dp"
+        >
+
 
         <TextView
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="@string/fullName"
             android:textColor="@android:color/white"
             android:textSize="25sp" />
 
-        <TextView
-            android:id="@+id/phone"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/phone"
-            android:textColor="@android:color/white"
-            android:textSize="22sp" />
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/address"
-            android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            <TextView
 
-        <TextView
-            android:id="@+id/timings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone    : "
+                android:textColor="@android:color/white"
+                android:textSize="22sp" />
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phone"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="30dp"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+
+
+
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/timing"
-            android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Service : "
+                android:textColor="@android:color/white"
+                android:textSize="22sp" />
+            <TextView
+                android:id="@+id/service"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="address"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="30dp"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Timings : "
+                android:textColor="@android:color/white"
+                android:textSize="22sp" />
+            <TextView
+                android:id="@+id/timings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phone"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="30dp"
+                android:textSize="22sp" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

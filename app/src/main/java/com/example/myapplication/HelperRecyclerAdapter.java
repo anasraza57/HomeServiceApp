@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -104,6 +105,11 @@ public class HelperRecyclerAdapter extends RecyclerView.Adapter<HelperRecyclerAd
                     db.collection("HelperRequests").add(helperRequests).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
+                            Map<String, Object> map=new HashMap<>();
+                            String id=documentReference.getId();
+                            map.put("id",id);
+                            documentReference.set(map, SetOptions.merge());
+
                             Toast.makeText(context,"Your Request is submitted, You will be assigned a helper real soon",Toast.LENGTH_LONG).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {

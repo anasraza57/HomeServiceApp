@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewAllHelpersActivity">
+    tools:context=".ViewAllHelpersActivity"
+    android:background="#D6D5EB">
 
     <TextView
         android:id="@+id/admin"
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/admin_pannel"
-        android:textColor="#5574F7"
+        android:textColor="#707070"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -64,7 +65,7 @@
         android:layout_below="@+id/buttons"
         android:gravity="center_horizontal"
         android:text="All Users"
-        android:textColor="#5574F7"
+        android:textColor="#707070"
         android:textSize="30sp" />
 
     <androidx.recyclerview.widget.RecyclerView

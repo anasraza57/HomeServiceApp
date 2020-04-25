@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_margin="10dp"
-    app:cardBackgroundColor="@android:color/white"
+
     app:cardCornerRadius="20dp"
     app:cardElevation="4dp">
 
@@ -12,7 +12,7 @@
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#5574F7"
+        android:background="#353A50"
         android:padding="10dp">
 
         <TextView
@@ -33,15 +33,17 @@
             android:text="@string/phone"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
-
-        <ImageView
-            android:id="@+id/close"
-            android:layout_width="40dp"
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="80dp"
             android:layout_height="40dp"
+            android:background="@drawable/delete_button"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:src="@drawable/ic_close_white" />
+            android:text="Delete"
+            android:textColor="#ffff"
+            />
 
 
     </RelativeLayout>

@@ -74,12 +74,15 @@ class AvailableHelpersRecyclerAdapter extends RecyclerView.Adapter<AvailableHelp
 
 
 
-                db.collection("Helper").document(jobRequestsData.get(position).getHelperPhone()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                db.collection("Helpers").document(jobRequestsData.get(position).getHelperPhone()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                         HashMap<String,Object> userNotification=new HashMap<>();
                         HashMap<String,Object> helperNotification=new HashMap<>();
+
+                        String gender=documentSnapshot.getString("gender");
+                        String cnic=documentSnapshot.getString("cnic");
 
                         helperNotification.put("reqId",jobRequestsData.get(position).getId());
                         helperNotification.put("userName",userName);
@@ -95,8 +98,8 @@ class AvailableHelpersRecyclerAdapter extends RecyclerView.Adapter<AvailableHelp
                         // userNotification.put("helperCNIC",jobRequestsData.get(position).helperCNIC);
                         userNotification.put("title",jobRequestsData.get(position).getJobTitle());
                         userNotification.put("userPhone",userPhone);
-                        userNotification.put("helperGender",documentSnapshot.getString("gender"));
-                        userNotification.put("helperCNIC",documentSnapshot.getString("cnic"));
+                        userNotification.put("helperGender",gender);
+                        userNotification.put("helperCNIC",cnic);
 
 
                         //  String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(new Date());

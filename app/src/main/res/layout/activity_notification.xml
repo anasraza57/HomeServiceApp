@@ -11,7 +11,7 @@
         android:id="@+id/appbarid"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="#665EFF"
         android:gravity="center"
         app:elevation="0dp">
 
@@ -30,7 +30,7 @@
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="#665EFF"
         app:tabGravity="fill"
         app:tabIndicatorColor="#2d2d2d"
         app:tabMode="fixed"

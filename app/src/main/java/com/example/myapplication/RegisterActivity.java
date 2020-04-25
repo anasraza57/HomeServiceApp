@@ -58,6 +58,10 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        if(SessionManager.isHelperLoggedIn())
+        {
+            startActivity(new Intent(getApplicationContext(),JobActivity.class));
+        }
         imageView = findViewById(R.id.attachIcon);
         signButton = findViewById(R.id.signin);
         nameText=findViewById(R.id.nameText);

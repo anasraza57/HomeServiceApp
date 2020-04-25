@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -52,14 +53,14 @@ public class FragmentUserNotification extends Fragment {
         db.collection("UserNotifications").whereEqualTo("userPhone",userPhone).orderBy("notificationDate").get().addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.w(TAG,e.getMessage());
+                Log.w(TAG,"Usre Notification Failure " + e.getMessage() );
 
             }
         }).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (DocumentSnapshot notification:queryDocumentSnapshots.getDocuments()) {
-                    userNotificationData.add(new UserNotificationData(notification.getString("helperName"),notification.getString("helperPhone"),notification.getString("helperGender"),notification.getString("helperCNIC"),notification.getString("title"),notification.get("notificationDate").toString(),notification.getString("id")));
+                    userNotificationData.add(new UserNotificationData(notification.getString("helperName"),notification.getString("helperPhone"),notification.getString("helperGender"),notification.getString("helperCNIC"),notification.getString("title"),notification.getDate("notificationDate").toString(),notification.getString("id")));
 
                 }
                 recyclerAdapter = new FragmentUserRecyclerAdapter(getContext(),userNotificationData);

@@ -31,6 +31,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        if(SessionManager.isHelperLoggedIn())
+        {
+            startActivity(new Intent(getApplicationContext(),JobActivity.class));
+        }
+
         registerButton = findViewById(R.id.register);
         loginButton = findViewById(R.id.loginButton);
         phoneText=findViewById(R.id.phoneText);
@@ -46,6 +51,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    public void onBackPressed() {
+
+    }
 
     @Override
     public void onClick(View v) {

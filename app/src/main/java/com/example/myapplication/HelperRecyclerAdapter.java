@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -93,6 +95,15 @@ public class HelperRecyclerAdapter extends RecyclerView.Adapter<HelperRecyclerAd
         holder.serviceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                holder.selectedItem=holder.gender.getSelectedItem().toString();
+
+                if(holder.selectedItem.isEmpty())
+                {
+                    Toast.makeText(context, "Please Fill the required fields",Toast.LENGTH_LONG).show();
+                    return;
+
+                }
                 if((holder.startTime.getHours()!=0)&&(holder.endTime.getHours()!=0))
                 {
                     Log.w(TAG,holder.startTimeButton.getText().toString());
@@ -102,6 +113,7 @@ public class HelperRecyclerAdapter extends RecyclerView.Adapter<HelperRecyclerAd
                     helperRequests.put("title",servicesData.get(position).title);
                     helperRequests.put("startTime",holder.startTime.hours+":"+holder.startTime.minutes);
                     helperRequests.put("endTime",holder.endTime.hours+":"+holder.endTime.minutes);
+                    helperRequests.put("helperGender",holder.selectedItem);
                     db.collection("HelperRequests").add(helperRequests).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
@@ -159,6 +171,9 @@ public class HelperRecyclerAdapter extends RecyclerView.Adapter<HelperRecyclerAd
         TimePickerDialog timePickerDialog;
         Context context;
         String startTimeString,endTimeString;
+        Spinner gender;
+        String[] items=new String[]{"Male","Female"};
+        String selectedItem="";
 
         public ViewHolder(@NonNull View itemView,Context context) {
             super(itemView);
@@ -166,13 +181,18 @@ public class HelperRecyclerAdapter extends RecyclerView.Adapter<HelperRecyclerAd
             title = itemView.findViewById(R.id.titleText);
             startTimeButton = itemView.findViewById(R.id.startTime);
             endTimeButton = itemView.findViewById(R.id.endTime);
-            genderButton = itemView.findViewById(R.id.gender);
+
+            this.context=context;
+            gender=itemView.findViewById(R.id.gender);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
+                    android.R.layout.simple_spinner_item,items);
+            gender.setAdapter(adapter);
             startTimeString="";
             endTimeString="";
             serviceButton = itemView.findViewById(R.id.getService);
             startTime=new Time();
             endTime=new Time();
-            this.context=context;
+
 
 
             Calendar calendar=Calendar.getInstance();

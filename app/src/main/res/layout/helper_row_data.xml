@@ -58,7 +58,7 @@
             android:background="@drawable/border"
             android:text="-:-" />
 
-        <Button
+        <Spinner
             android:id="@+id/gender"
             android:layout_width="100dp"
             android:layout_height="40dp"
@@ -67,10 +67,12 @@
             android:layout_marginLeft="20dp"
             android:layout_toEndOf="@+id/endTime"
             android:layout_toRightOf="@+id/endTime"
-            android:background="@drawable/custom_border"
             android:drawableEnd="@drawable/ic_arrow_down"
             android:drawableRight="@drawable/ic_arrow_down"
-            android:text="Male" />
+            android:background="@android:drawable/btn_dropdown"
+
+            android:spinnerMode="dropdown"
+            />
 
         <Button
             android:id="@+id/getService"

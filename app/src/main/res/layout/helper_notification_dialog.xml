@@ -102,7 +102,7 @@
             android:layout_marginLeft="10dp"
             android:text="aklsdlkasdla"
             android:textColor="@android:color/white"
-            android:textSize="18dp" />
+            android:textSize="10dp" />
 
 
     </LinearLayout>

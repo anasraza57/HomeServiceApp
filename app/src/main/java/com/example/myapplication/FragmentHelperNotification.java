@@ -55,7 +55,7 @@ public class FragmentHelperNotification extends Fragment {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (DocumentSnapshot notification:queryDocumentSnapshots.getDocuments()) {
-                    helperNotificationData.add(new HelperNotificationData(notification.getString("userName"),notification.getString("userPhone"),notification.getString("title"),notification.get("notificationDate").toString()));
+                    helperNotificationData.add(new HelperNotificationData(notification.getString("userName"),notification.getString("userPhone"),notification.getString("title"),notification.getDate("notificationDate").toString()));
 
                 }
                 recyclerAdapter = new FragmentHelperRecyclerAdapter(getContext(),helperNotificationData);

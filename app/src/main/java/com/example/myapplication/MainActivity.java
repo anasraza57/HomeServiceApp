@@ -53,6 +53,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         notifyButton.setOnClickListener(this);
 
         sessionManager=new SessionManager(getApplicationContext());
+        if(!SessionManager.isUserLoggedIn() && !SessionManager.isHelperLoggedIn())
+        {
+            notifyButton.setVisibility(View.GONE);
+        }
+
+
 
 
 
@@ -126,10 +132,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.notify:
-                if(SessionManager.isUserLoggedIn()) {
+
                     intent = new Intent(getApplicationContext(), NotificationActivity.class);
                     startActivity(intent);
-                }
+
                 break;
 
         }

@@ -5,13 +5,15 @@
     android:layout_height="100dp"
     android:layout_margin="10dp"
     app:cardCornerRadius="20dp"
-    app:cardElevation="4dp">
+    app:cardElevation="4dp"
+    >
 
     <RelativeLayout
         android:id="@+id/card"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
+        android:background="#43485C"
         android:gravity="center_vertical"
         android:padding="10dp">
 
@@ -19,8 +21,8 @@
             android:id="@+id/notify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/notification"
-            android:textColor="@color/colorPrimaryDark"
+            android:text="User Assigned"
+            android:textColor="#ffff"
             android:textSize="20sp" />
     </RelativeLayout>
 

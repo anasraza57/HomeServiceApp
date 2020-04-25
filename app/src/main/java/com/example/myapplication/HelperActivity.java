@@ -27,6 +27,13 @@ public class HelperActivity extends AppCompatActivity {
     String TAG="MyActivity";
     FirebaseFirestore db;
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

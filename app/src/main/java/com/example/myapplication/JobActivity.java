@@ -37,6 +37,11 @@ public class JobActivity extends AppCompatActivity {
     String helperName;
     String helperPhone;
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

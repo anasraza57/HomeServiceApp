@@ -52,14 +52,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         signinTextView.setOnClickListener(this);
         notifyButton.setOnClickListener(this);
 
-        sessionManager=new SessionManager(getApplicationContext());
-        if(!SessionManager.isUserLoggedIn() && !SessionManager.isHelperLoggedIn())
-        {
+        sessionManager = new SessionManager(getApplicationContext());
+        if (!SessionManager.isUserLoggedIn() && !SessionManager.isHelperLoggedIn()) {
             notifyButton.setVisibility(View.GONE);
         }
-
-
-
 
 
     }
@@ -95,47 +91,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         Intent intent;
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.bookHelper:
-                if(sessionManager.isUserLoggedIn())
-                {
-                    intent=new Intent(getApplicationContext(),HelperActivity.class);
-                }
-                else intent=new Intent(getApplicationContext(),UserLoginActivity.class);
+                if (sessionManager.isUserLoggedIn()) {
+                    intent = new Intent(getApplicationContext(), HelperActivity.class);
+                } else intent = new Intent(getApplicationContext(), UserLoginActivity.class);
 
                 startActivity(intent);
                 break;
 
             case R.id.getJob:
-                if(sessionManager.isHelperLoggedIn())
-                {
-                    intent=new Intent(getApplicationContext(),JobActivity.class);
-                }
-                else intent=new Intent(getApplicationContext(),LoginActivity.class);
+                if (sessionManager.isHelperLoggedIn()) {
+                    intent = new Intent(getApplicationContext(), JobActivity.class);
+                } else intent = new Intent(getApplicationContext(), LoginActivity.class);
 
                 startActivity(intent);
 
-            break;
-
+                break;
 
             case R.id.ourCharges:
-            intent= new Intent(getApplicationContext(), HelperActivity.class);
+                intent = new Intent(getApplicationContext(), OurChargesActivity.class);
                 startActivity(intent);
+                break;
+
             case R.id.services:
-                intent= new Intent(getApplicationContext(), HelperActivity.class);
+                intent = new Intent(getApplicationContext(), ServicesActivity.class);
                 startActivity(intent);
                 break;
 
             case R.id.signin:
-                intent= new Intent(getApplicationContext(), ViewAllUsersActivity.class);
+                intent = new Intent(getApplicationContext(), ViewAllUsersActivity.class);
                 startActivity(intent);
                 break;
 
             case R.id.notify:
-
-                    intent = new Intent(getApplicationContext(), NotificationActivity.class);
-                    startActivity(intent);
-
+                intent = new Intent(getApplicationContext(), NotificationActivity.class);
+                startActivity(intent);
                 break;
 
         }

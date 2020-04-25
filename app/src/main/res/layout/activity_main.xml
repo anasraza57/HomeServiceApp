@@ -182,7 +182,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/custom_button"
-                android:text="@string/serives"
+                android:text="@string/services"
                 android:textColor="@android:color/white" />
 
         </LinearLayout>

@@ -18,7 +18,7 @@
     <string name="needajob">Need a job? You can  provide  services  as a helper too.</string>
     <string name="getajob">Get A Job</string>
     <string name="ourcharges">Our Charges</string>
-    <string name="serives">Services</string>
+    <string name="services">Services</string>
     <string name="cleaner">Cleaner</string>
     <string name="get_service">Get Service</string>
     <string name="laundary">Laundary</string>
@@ -48,5 +48,11 @@
     <string name="available_helpers">Available Helpers</string>
     <string name="view_details">View Details</string>
     <string name="assign">Assign</string>
+    <string name="homeServices">Home Services</string>
+    <string name="charges">Charges:</string>
+    <string name="problemsolver">Problem Solvers</string>
+    <string name="caretackers">Care Takers</string>
+    <string name="Housekeeping">House keeping materials should be provided by the house keepers.</string>
+    <string name="desciption">Description</string>
 
 </resources>

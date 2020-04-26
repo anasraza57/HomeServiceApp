@@ -9,24 +9,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AvailableHelpersActivity"
-            android:parentActivityName=".ViewAllRequestsActivity"/>
-        <activity android:name=".ViewAllRequestsActivity"
-            android:launchMode = "singleTop"
-            android:parentActivityName=".ViewAllUsersActivity"/>
+        <activity android:name=".ServicesActivity"></activity>
+        <activity android:name=".OurChargesActivity" />
+        <activity
+            android:name=".AvailableHelpersActivity"
+            android:parentActivityName=".ViewAllRequestsActivity" />
+        <activity
+            android:name=".ViewAllRequestsActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ViewAllUsersActivity" />
         <activity android:name=".NotificationActivity" />
-        <activity android:name=".ViewAllHelpersActivity"
-            android:launchMode = "singleTop"
-            android:parentActivityName=".ViewAllUsersActivity"/>
-        <activity android:name=".ViewAllUsersActivity"
-            android:launchMode = "singleTop"/>
+        <activity
+            android:name=".ViewAllHelpersActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ViewAllUsersActivity" />
+        <activity
+            android:name=".ViewAllUsersActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".UserRegisterActivity"
             android:label="@string/title_activity_user_register" />
-        <activity android:name=".JobActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".HelperActivity"
-            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".JobActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".HelperActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".UserLoginActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />

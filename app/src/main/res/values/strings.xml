@@ -20,13 +20,13 @@
     <string name="ourcharges">Our Charges</string>
     <string name="services">Services</string>
     <string name="cleaner">Cleaner</string>
-    <string name="get_service">Get Service</string>
+    <string name="get_service">Get Service</string>AS
     <string name="laundary">Laundary</string>
     <string name="utensil">Utensil Washing</string>
     <string name="baby_sitter">Baby Sitter</string>
     <string name="patient_care">Patient Care</string>
     <string name="plumber">Plumber</string>
-    <string name="electrition">Electrition</string>
+    <string name="electrition">Guard</string>
     <string name="select">Select</string>
     <string name="startServices">Start Services</string>
     <string name="selectpreferable">Select Preferable Timings</string>

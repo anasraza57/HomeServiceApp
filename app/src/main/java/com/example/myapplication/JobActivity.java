@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,7 +17,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
@@ -118,8 +116,8 @@ public class JobActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 for (JobRowData rowData: jobData) {
-
                     if(rowData.isSelected()) {
+
                         Map<String, Object> helperRequests = new HashMap<>();
                         helperRequests.put("helperName", helperName);
                         helperRequests.put("helperPhone", helperPhone);
@@ -147,6 +145,7 @@ public class JobActivity extends AppCompatActivity {
                                documentReference.set(map, SetOptions.merge());
 
                                 Toast.makeText(getApplicationContext(),"Your Job request is submitted You will be Notified",Toast.LENGTH_LONG).show();
+                                autoAssignUser();
                                 Intent i=new Intent(getApplicationContext(),MainActivity.class);
                                 startActivity(i);
                             }
@@ -156,12 +155,18 @@ public class JobActivity extends AppCompatActivity {
                                 Log.i(TAG,"Add helperRequest to firestore Failure Listener");
                             }
                         });
+
+
                     }
 
                 }
 
             }
         });
+    }
+
+    private void autoAssignUser() {
+
     }
 
 

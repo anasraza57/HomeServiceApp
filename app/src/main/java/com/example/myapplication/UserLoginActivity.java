@@ -44,7 +44,8 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void onBackPressed() {
-
+        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        finish();
     }
     @Override
     public void onClick(View v) {

@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView notifyButton;
 
 
-    int[] sampleImages = {R.drawable.clean, R.drawable.launday, R.drawable.utensil,R.drawable.babysitter,R.drawable.patient,R.drawable.plmbr,R.drawable.Ali_Cooling_Electrical_Home_Services_citybook_1};
+    int[] sampleImages = {R.drawable.clean, R.drawable.launday, R.drawable.utensil,R.drawable.babysitter,R.drawable.patient,R.drawable.plmbr,R.drawable.plmbr};
     String[] textImagesHeading = {"Cleaning", "Laundary", "UtensilWashing", "Baby Sitter", "Patient Care", "Plumber", "Electrician"};
 
     String[] textImages = {"Info about home service providers", "Info about home service providers", "Book our Cleaners now", "Book our Cleaners now", "Book our Cleaners now", "Book our Cleaners now", "Book our Cleaners now"};

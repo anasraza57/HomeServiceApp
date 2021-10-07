@@ -22,10 +22,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -106,42 +110,172 @@ public class HelperRecyclerAdapter extends RecyclerView.Adapter<HelperRecyclerAd
                 }
                 if((holder.startTime.getHours()!=0)&&(holder.endTime.getHours()!=0))
                 {
-                    Log.w(TAG,holder.startTimeButton.getText().toString());
-                    Map<String,Object> helperRequests=new HashMap<>();
-                    helperRequests.put("userName",userName);
-                    helperRequests.put("userPhone",userPhone);
-                    helperRequests.put("title",servicesData.get(position).title);
-                    helperRequests.put("startTime",holder.startTime.hours+":"+holder.startTime.minutes);
-                    helperRequests.put("endTime",holder.endTime.hours+":"+holder.endTime.minutes);
-                    helperRequests.put("helperGender",holder.selectedItem);
-                    db.collection("HelperRequests").add(helperRequests).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Map<String, Object> map=new HashMap<>();
-                            String id=documentReference.getId();
-                            map.put("id",id);
-                            documentReference.set(map, SetOptions.merge());
+                    autoAssignIfHelperAvailable(servicesData.get(position).getTitle(),holder,position);
 
-                            Toast.makeText(context,"Your Request is submitted, You will be assigned a helper real soon",Toast.LENGTH_LONG).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d(TAG,"Add helperRequests Failure");
-                        }
-                    });
-                    Intent i=new Intent(context,MainActivity.class);
-                    context.startActivity(i);
+
                 }
                 else Toast.makeText(context,"Please Enter time first",Toast.LENGTH_LONG).show();
             }
         });
 
     }
+
+    private void autoAssignIfHelperAvailable(final String title, final ViewHolder holder, final int position) {
+        db.collection("JobRequests").whereEqualTo("jobTitle",title).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if(queryDocumentSnapshots.getDocuments().isEmpty())
+                {
+                    addUserRequestToDatabase(holder,position);
+                }
+                else
+                {
+                    final String helperPhone= queryDocumentSnapshots.getDocuments().get(0).getString("helperPhone");
+                    final String reqId= queryDocumentSnapshots.getDocuments().get(0).getString("id");
+                    final String helperName= queryDocumentSnapshots.getDocuments().get(0).getString("helperName");
+
+                    db.collection("Helpers").document(helperPhone).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                            HashMap<String,Object> userNotification=new HashMap<>();
+                            HashMap<String,Object> helperNotification=new HashMap<>();
+
+                            String gender=documentSnapshot.getString("gender");
+                            String cnic=documentSnapshot.getString("cnic");
+
+                            helperNotification.put("reqId",reqId);
+                            helperNotification.put("userName",userName);
+                            helperNotification.put("userPhone",userPhone);
+                            helperNotification.put("title",title);
+                            helperNotification.put("helperPhone",helperPhone);
+
+
+
+                            userNotification.put("reqId",reqId);
+                            userNotification.put("helperPhone",helperPhone);
+                            userNotification.put("helperName",helperName);
+                            // userNotification.put("helperCNIC",jobRequestsData.get(position).helperCNIC);
+                            userNotification.put("title",title);
+                            userNotification.put("userPhone",userPhone);
+                            userNotification.put("helperGender",gender);
+                            userNotification.put("helperCNIC",cnic);
+
+
+                            //  String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(new Date());
+
+                            Calendar c = Calendar.getInstance();
+                            Date date=new Date();
+                            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            String formattedDate = df.format(c.getTime());
+                            try {
+                                date=df.parse(formattedDate);
+                            } catch (ParseException e) {
+                                Log.w(TAG,e.getMessage());
+                            }
+                            userNotification.put("notificationDate",date);
+                            helperNotification.put("notificationDate",date);
+
+
+                            db.collection("HelperNotifications").add(helperNotification).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+
+                                    Map<String, Object> map=new HashMap<>();
+                                    String id=documentReference.getId();
+                                    map.put("id",id);
+                                    documentReference.set(map, SetOptions.merge());
+                                    Log.d(TAG,"push Notification Success");
+                                    Toast.makeText(context,"Request Assigned Successfully, User and helper both will be notified",Toast.LENGTH_LONG).show();
+
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d(TAG,"push Notification Failure");
+                                }
+                            });
+
+                            db.collection("UserNotifications").add(userNotification).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+
+                                    Map<String, Object> map=new HashMap<>();
+                                    String id=documentReference.getId();
+                                    map.put("id",id);
+                                    documentReference.set(map, SetOptions.merge());
+                                    Log.d(TAG,"push Notification Success");
+                                    Toast.makeText(context,"Request Assigned Successfully, User and helper both will be notified",Toast.LENGTH_LONG).show();
+
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d(TAG,"push Notification Failure");
+                                }
+                            });
+
+                        }
+                    });
+
+                    deleteJobRequest(reqId);
+                    Intent i=new Intent(context,MainActivity.class);
+                    context.startActivity(i);
+
+                }
+            }
+        });
+    }
+
+    private void deleteJobRequest(String reqId) {
+        db.collection("JobRequests").document(reqId).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG, "DocumentSnapshot successfully deleted!");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "Error deleting document", e);
+
+            }
+        });
+    }
+
+    private void addUserRequestToDatabase(ViewHolder holder,int position)
+    {
+        Log.w(TAG,holder.startTimeButton.getText().toString());
+        Map<String,Object> helperRequests=new HashMap<>();
+        helperRequests.put("userName",userName);
+        helperRequests.put("userPhone",userPhone);
+        helperRequests.put("title",servicesData.get(position).title);
+        helperRequests.put("startTime",holder.startTime.hours+":"+holder.startTime.minutes);
+        helperRequests.put("endTime",holder.endTime.hours+":"+holder.endTime.minutes);
+        helperRequests.put("helperGender",holder.selectedItem);
+        db.collection("HelperRequests").add(helperRequests).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Map<String, Object> map=new HashMap<>();
+                String id=documentReference.getId();
+                map.put("id",id);
+                documentReference.set(map, SetOptions.merge());
+
+                Toast.makeText(context,"Your Request is submitted, You will be assigned a helper real soon",Toast.LENGTH_LONG).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG,"Add helperRequests Failure");
+            }
+        });
+        Intent i=new Intent(context,MainActivity.class);
+        context.startActivity(i);
+    }
+
     void getUserName()
     {
-
-
         db.collection("Users").document(userPhone).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {

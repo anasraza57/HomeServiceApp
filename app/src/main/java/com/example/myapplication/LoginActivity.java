@@ -52,7 +52,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void onBackPressed() {
-
+        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        finish();
     }
 
     @Override

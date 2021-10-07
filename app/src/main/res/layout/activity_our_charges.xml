@@ -26,7 +26,7 @@
             android:id="@+id/card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/darker_gray"
+            android:background="#353A50"
             android:padding="15dp">
 
             <TextView
@@ -80,7 +80,7 @@
             android:id="@+id/card2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/darker_gray"
+            android:background="#353A50"
             android:padding="15dp">
 
             <TextView
@@ -134,7 +134,7 @@
             android:id="@+id/card3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/darker_gray"
+            android:background="#353A50"
             android:padding="15dp">
 
             <TextView

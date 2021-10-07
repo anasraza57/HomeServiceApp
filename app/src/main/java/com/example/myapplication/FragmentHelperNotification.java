@@ -42,13 +42,13 @@ public class FragmentHelperNotification extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         helperPhone=SessionManager.getHelperPhone();
-
+        Log.w(TAG,"This is helper phone : " + helperPhone);
         db=FirebaseFirestore.getInstance();
 
-        db.collection("HelperNotifications").whereEqualTo("helperPhone",helperPhone).orderBy("notificationDate").get().addOnFailureListener(new OnFailureListener() {
+        db.collection("HelperNotifications").whereEqualTo("helperPhone",helperPhone).get().addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.w(TAG,e.getMessage());
+                Log.w(TAG,"Failure helper notification "+ e.getMessage());
 
             }
         }).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -58,6 +58,7 @@ public class FragmentHelperNotification extends Fragment {
                     helperNotificationData.add(new HelperNotificationData(notification.getString("userName"),notification.getString("userPhone"),notification.getString("title"),notification.getDate("notificationDate").toString()));
 
                 }
+                Log.d(TAG, "hELPER nOTFICATIONS SIZE "+helperNotificationData.size() +"");
                 recyclerAdapter = new FragmentHelperRecyclerAdapter(getContext(),helperNotificationData);
                 recyclerView.setAdapter(recyclerAdapter);
             }

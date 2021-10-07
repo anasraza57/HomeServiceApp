@@ -53,7 +53,7 @@ public class FragmentUserNotification extends Fragment {
         db.collection("UserNotifications").whereEqualTo("userPhone",userPhone).orderBy("notificationDate").get().addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.w(TAG,"Usre Notification Failure " + e.getMessage() );
+                Log.w(TAG,"User Notification Failure " + e.getMessage() );
 
             }
         }).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
